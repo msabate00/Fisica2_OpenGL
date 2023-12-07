@@ -19,6 +19,9 @@ bool ModuleSceneIntro::Start()
 	// TODO 2: Place the camera one unit up in Y and one unit to the right
 	// experiment with different camera placements, then use LookAt()
 	// to make it look at the center
+	App->camera->Move(vec3(2, 2, 0));
+	App->camera->LookAt(vec3(0, 0, 0));
+
 
 	return ret;
 }
@@ -37,9 +40,24 @@ update_status ModuleSceneIntro::Update()
 	// TODO 1: Create a Plane primitive. This uses the plane formula
 	// so you have to express the normal of the plane to create 
 	// a plane centered around 0,0. Make that it draw the axis for reference
+	Plane* plane = new Plane(0, 1, 0, 0);
+	plane->axis = true;
+	plane->Render();
+
 
 	// TODO 6: Draw a sphere of 0.5f radius around the center
 	// Draw somewhere else a cube and a cylinder in wireframe
+
+	Sphere* sphere = new Sphere(0.5f);
+	sphere->Render();
+
+	Cube* cube = new Cube(2, 2, 2);
+	cube->SetPos(4, 0, 0);
+	cube->Render();
+
+	Cylinder* cylinder = new Cylinder(0.5f, 2);
+	cylinder->SetPos(-4, 0, 0);
+	cylinder->Render();
 
 	return UPDATE_CONTINUE;
 }

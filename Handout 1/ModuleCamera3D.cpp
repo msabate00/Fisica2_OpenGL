@@ -40,14 +40,31 @@ update_status ModuleCamera3D::Update()
 	// OnKeys WASD keys -----------------------------------
 
 	// TODO 3: Make the camera go up/down when pressing R (up) F(down)
-
+	if (App->input->GetKey(SDL_SCANCODE_R)) {
+		this->Move(vec3(0,1,0));
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F)) {
+		this->Move(vec3(0, -1, 0));
+	}
 	// TODO 4: Make the camera go forward (w) and backward with (s)
 	// Note that the vectors X/Y/Z contain the current axis of the camera
 	// you can read them to modify Position
+	if (App->input->GetKey(SDL_SCANCODE_S)) {
+		this->Move(vec3(0, 0, 1));
+	}
+	if (App->input->GetKey(SDL_SCANCODE_W)) {
+		this->Move(vec3(0, 0, -1));
+	}
 
 	// TODO 5: Make the camera go left (a) and right with (d)
 	// Note that the vectors X/Y/Z contain the current axis of the camera
 	// you can read them to modify Position
+	if (App->input->GetKey(SDL_SCANCODE_D)) {
+		this->Move(vec3(1, 0, 0));
+	}
+	if (App->input->GetKey(SDL_SCANCODE_A)) {
+		this->Move(vec3(-1, 0, 0));
+	}
 	
 	// Mouse motion ----------------
 	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
@@ -56,6 +73,33 @@ update_status ModuleCamera3D::Update()
 		int dy = -App->input->GetMouseYMotion();
 
 		// TODO (Homework): Rotate the camera with the mouse
+		
+
+		Position -= Reference;
+
+			X = rotate(X, dx, vec3(0, 1, 0));
+			Y = rotate(Y, dx, vec3(0, 1, 0));
+			Z = rotate(Z, dx, vec3(0, 1, 0));
+		
+
+			Y = rotate(Y, dy, X);
+			Z = rotate(Z, dy, X);
+
+			if (Y.y < 0.0f)
+			{
+				if (Z.y > 0) {
+					Z = vec3(0.0f,  1.0f, 0.0f);
+				}
+				else {
+					Z = vec3(0.0f, -1.0f, 0.0f);
+				}
+				
+				Y = cross(Z, X);
+			}
+		
+
+		Position = Reference + Z * length(Position);
+
 	}
 
 	// Recalculate matrix -------------
