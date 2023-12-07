@@ -18,6 +18,7 @@ public:
 	bool CleanUp();
 
 	//TODO 9: Create an "OnCollision" method specific for this module
+	void OnCollision(PhysBody3D* body1, PhysBody3D* body2) override;
 
 private:
 	p2DynArray<Primitive*> primitives;

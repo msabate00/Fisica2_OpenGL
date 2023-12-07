@@ -28,6 +28,8 @@ private:
 	btRigidBody* body;
 	//TODO 1: Store all "new" created values
 
+	p2DynArray<btRigidBody*> bodies;
+
 public:
 	Primitive* parentPrimitive;
 	p2DynArray<Module*> collision_listeners;
