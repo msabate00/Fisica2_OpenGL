@@ -32,9 +32,13 @@ public:
 
 	//TODO 1: Implement the code to add a Point to Point constraint ( btPoint2PointConstraint )
 	//void AddConstraintP2P(const Primitive& bodyA, const Primitive& bodyB, ...);
+	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB);
+	
 
 	//TODO 3: Implement the code to add a Hinge constraint ( btHingeConstraint )
 	//void AddConstraintHinge(const Primitive & bodyA, const Primitive & bodyB, ...);
+	void AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisS, const vec3& axisB, bool disable_collision = false);
+
 
 private:
 	btDefaultCollisionConfiguration*	collision_conf;
@@ -43,6 +47,13 @@ private:
 	btSequentialImpulseConstraintSolver* solver;
 	btDiscreteDynamicsWorld*			world;
 	DebugDrawer*						debug_draw;
+
+
+	p2List<btTypedConstraint*> constraints;
+	//p2List<btCollisionShape*> shapes;
+	//p2List<PhysBody3D*> bodies;
+	//p2List<btDefaultMotionState*> motions;
+
 };
 
 class DebugDrawer : public btIDebugDraw

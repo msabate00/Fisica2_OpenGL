@@ -75,7 +75,7 @@ bool ModulePhysics3D::Start()
 // ---------------------------------------------------------
 update_status ModulePhysics3D::PreUpdate(float dt)
 {
-	world->stepSimulation(dt, 15);
+	world->stepSimulation(dt, 1);
 
 	for (int n = 0; n < world->getDispatcher()->getNumManifolds(); n++)
 	{
@@ -205,4 +205,32 @@ void DebugDrawer::setDebugMode(int debugMode)
 int	 DebugDrawer::getDebugMode() const
 {
 	return mode;
+}
+
+
+void ModulePhysics3D::AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB)
+{
+	btTypedConstraint* p2p = new btPoint2PointConstraint(
+		*(bodyA.body),
+		*(bodyB.body),
+		btVector3(anchorA.x, anchorA.y, anchorA.z),
+		btVector3(anchorB.x, anchorB.y, anchorB.z));
+	world->addConstraint(p2p);
+	constraints.add(p2p);
+	p2p->setDbgDrawSize(2.0f);
+}
+
+void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisA, const vec3& axisB, bool disable_collision)
+{
+	btHingeConstraint* hinge = new btHingeConstraint(
+		*(bodyA.body),
+		*(bodyB.body),
+		btVector3(anchorA.x, anchorA.y, anchorA.z),
+		btVector3(anchorB.x, anchorB.y, anchorB.z),
+		btVector3(axisA.x, axisA.y, axisA.z),
+		btVector3(axisB.x, axisB.y, axisB.z));
+
+	world->addConstraint(hinge, disable_collision);
+	constraints.add(hinge);
+	hinge->setDbgDrawSize(2.0f);
 }

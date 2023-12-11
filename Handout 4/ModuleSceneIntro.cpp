@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "PhysBody3D.h"
 
+
 ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
 {
 }
@@ -27,6 +28,9 @@ bool ModuleSceneIntro::Start()
 
 	float XPos = 0.f;
 	float Size = StartingSize;
+
+	Sphere* lastSphere = nullptr;
+
 	for (int n = 0; n < SnakeLength; n++)
 	{
 		Sphere* s = new Sphere(Size);
@@ -34,9 +38,19 @@ bool ModuleSceneIntro::Start()
 		s->SetPos(XPos, 10.f, 2.5f);
 
 		//TODO 2: Link all the spheres with your P2P constraints
-
+		/*if (primitives.Count() > 1) {
+			App->physics->AddConstraintP2P(s->body, ((Sphere*)primitives.At(primitives.Count()-2))->body, vec3(0, 0, 0), vec3(0, 0, 0));
+		}
+		*/
+		
 		XPos += Size + Size + SizeIncrement + BallDistance;
 		Size += SizeIncrement;
+
+
+		if (lastSphere != nullptr) {
+			App->physics->AddConstraintP2P(s->body, lastSphere->body, vec3(0, 0, 0), vec3(2, 0, 0));
+		}
+		lastSphere = s;
 	}
 
 	//TODO 4: Link some other spheres with your Hinge constraint
