@@ -50,6 +50,18 @@ void PhysVehicle3D::Render()
 
 
 	chassis.Render();
+
+
+	Cube chassis2(4,1,1);
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis2.transform);
+	
+	chassis2.transform.M[4] = 0;
+
+	chassis2.transform.M[12] += offset.getX();
+	chassis2.transform.M[13] += offset.getY();
+	chassis2.transform.M[14] += offset.getZ();
+	chassis2.Render();
+
 }
 
 // ----------------------------------------------------------------------------
