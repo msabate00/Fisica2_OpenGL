@@ -75,7 +75,7 @@ bool ModulePhysics3D::Start()
 // ---------------------------------------------------------
 update_status ModulePhysics3D::PreUpdate(float dt)
 {
-	world->stepSimulation(dt, 1);
+	world->stepSimulation(dt, 15);
 
 	for (int n = 0; n < world->getDispatcher()->getNumManifolds(); n++)
 	{
@@ -217,7 +217,7 @@ void ModulePhysics3D::AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, con
 		btVector3(anchorB.x, anchorB.y, anchorB.z));
 	world->addConstraint(p2p);
 	constraints.add(p2p);
-	p2p->setDbgDrawSize(2.0f);
+	p2p->setDbgDrawSize(20.0f);
 }
 
 void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisA, const vec3& axisB, bool disable_collision)
@@ -232,5 +232,5 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 
 	world->addConstraint(hinge, disable_collision);
 	constraints.add(hinge);
-	hinge->setDbgDrawSize(2.0f);
+	hinge->setDbgDrawSize(20.0f);
 }

@@ -48,7 +48,7 @@ bool ModuleSceneIntro::Start()
 
 
 		if (lastSphere != nullptr) {
-			App->physics->AddConstraintP2P(s->body, lastSphere->body, vec3(0, 0, 0), vec3(2, 0, 0));
+			App->physics->AddConstraintP2P(s->body, lastSphere->body, vec3(0, 0, 0), vec3(4, 0, 0));
 		}
 		lastSphere = s;
 	}
@@ -75,7 +75,7 @@ bool ModuleSceneIntro::Start()
 
 
 		if (lastSphere != nullptr) {
-			App->physics->AddConstraintHinge(s->body, lastSphere->body, vec3(0, 0, 0), vec3(4, 0, 0), vec3(2,0,0),vec3(2, 0, 0));
+			App->physics->AddConstraintHinge(s->body, lastSphere->body, vec3(0, 0, 4), vec3(4, 0, 0), vec3(0,0,0),vec3(0, 0, 1));
 		}
 		lastSphere = s;
 	}
