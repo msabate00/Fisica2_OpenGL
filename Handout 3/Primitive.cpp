@@ -175,8 +175,8 @@ Sphere::Sphere(float _radius, float mass) : Primitive(), radius(_radius)
 {
 	type = PrimitiveTypes::Primitive_Sphere;
 	//TODO 4: Initialize the PhysBody to be a Sphere
-	body = PhysBody3D();
-	body.InitBody(new Sphere(_radius), mass);
+	this->radius = _radius;
+	body.InitBody(this, mass);
 	
 }
 

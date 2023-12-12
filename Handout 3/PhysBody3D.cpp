@@ -30,6 +30,7 @@ PhysBody3D::~PhysBody3D()
 
 }
 
+
 void PhysBody3D::InitBody(Sphere* primitive, float mass)
 {
 	//TODO 1: Store all "new" created values
