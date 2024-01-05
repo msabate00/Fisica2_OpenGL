@@ -111,14 +111,7 @@ update_status ModulePhysics3D::Update(float dt)
 			
 		}
 	}
-	if (lastSphere != nullptr) {
-		lastSphere->Render();
-	}
 	
-
-
-
-
 	return UPDATE_CONTINUE;
 }
 
