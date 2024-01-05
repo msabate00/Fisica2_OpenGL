@@ -66,6 +66,13 @@ bool ModulePhysics3D::Start()
 		 world->addRigidBody(body);
 	}
 
+	btMotionState* motionState = new btDefaultMotionState();
+	btBoxShape* shape = new btBoxShape(btVector3(200.0f, 1.0f, 200.0f));
+	btRigidBody::btRigidBodyConstructionInfo rigidBodyInfo(/*mass*/0.0f, motionState, shape);
+	btRigidBody* rigidBody = new btRigidBody(rigidBodyInfo);
+
+	world->addRigidBody(rigidBody);
+
 	return true;
 }
 
@@ -91,8 +98,15 @@ update_status ModulePhysics3D::Update(float dt)
 		if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 			// TODO 7: Create a Solid Sphere when pressing 1 on camera position
-			lastSphere = new Sphere(1);
-			lastSphere->SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+			/*lastSphere = new Sphere(1);
+			lastSphere->SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);*/
+
+			btSphereShape* sphereShape = new btSphereShape(1);
+			btVector3 initialPosition(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+			btDefaultMotionState* motionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), initialPosition));
+			btRigidBody::btRigidBodyConstructionInfo rbInfo(1.0f, motionState, sphereShape);
+			btRigidBody* rigidBody = new btRigidBody(rbInfo);
+			world->addRigidBody(rigidBody);
 			
 			
 		}
